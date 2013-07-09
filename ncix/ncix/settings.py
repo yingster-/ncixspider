@@ -7,13 +7,23 @@
 #
 LOG_LEVEL = 'INFO'
 BOT_NAME = 'ncixbot'
-DOWNLOAD_DELAY = 4
-DEPTH_LIMIT = 1
+DOWNLOAD_DELAY = 8
+DEPTH_LIMIT = 2
 SPIDER_MODULES = ['ncix.spiders']
 NEWSPIDER_MODULE = 'ncix.spiders'
 DUPEFILTER_CLASS = 'ncix.ncixdupefilter.NCIXDupeFilter'
 LOG_FILE = 'output.log'
 ROBOTSTXT_OBEY = True
 AUTOTHROTTLE_ENABLED = True
+
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': None,
+    'ncix.middleware.rand_useragent.RandomUserAgentMiddleware':400,
+}
+
+ITEM_PIPELINES = [
+    'ncix.pipelines.NcixItemDupPipeline',
+    'ncix.pipelines.NcixStoreItemPipeline',
+]
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'ncix (+http://www.yourdomain.com)'

@@ -20,8 +20,8 @@ class NcixSpider(CrawlSpider):
         self.start_urls = [kwargs.get('start_url')]
 
         if self.start_urls ==[None]:
-            self.start_urls = ["http://ncix.com/products/?minorcatid=1263"]
-            #self.start_urls = ["http://ncix.com/products/?mode=productdir"]
+#            self.start_urls = ["http://ncix.com/products/?minorcatid=1263"]
+            self.start_urls = ["http://ncix.com/products/?mode=productdir"]
     
     def parse_item(self, response):
         import re

@@ -15,7 +15,7 @@ class NCIXDupeFilter(RFPDupeFilter):
             self.skuf = open(os.path.join(path, 'sku.seen'), 'a+')
             self.file = open(os.path.join(path, 'requests.seen'), 'a+')
             self.fingerprints.update(x.rstrip() for x in self.file)
-            self.skuss.update(x.rstrip() for x in self.skuf)
+            self.skus.update(x.rstrip() for x in self.skuf)
         
     def __get_id(self, request):
         sku = None
@@ -38,17 +38,19 @@ class NCIXDupeFilter(RFPDupeFilter):
 
         if sku:
             if sku in self.skus:
-                print "Seen SKU" + str(sku)
+#                print "Seen SKU " + str(sku)
                 return True
             self.skus.add(sku)
             if self.skuf:
-                self.skuf.write(sku + os.linesep)
+                self.skuf.write(str(sku) + os.linesep)
+                self.skuf.flush()
         if fp in self.fingerprints:
-            print "Seen URL" + str(request)
+#            print "Seen URL " + str(request)
             return True
         self.fingerprints.add(fp)
         if self.file:
             self.file.write(fp + os.linesep)
+            self.file.flush()
         
 
     def close(self, reason):
