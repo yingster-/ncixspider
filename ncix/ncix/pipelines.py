@@ -20,7 +20,8 @@ class NcixItemDupPipeline(object):
             self.sku_seen.add(item['sku'])
             return item
 
-
+#Stores Item into database
+#TODO: create table if table not exist
 class NcixStoreItemPipeline(object):
     from scrapy.exceptions import DropItem
     def __init__(self):
@@ -31,7 +32,7 @@ class NcixStoreItemPipeline(object):
         db_item=(item['product'], 
                  item['sku'], 
                  str(item['url']), 
-                 str(item['part_number']), 
+                 item['part_number'], 
                  int(item['date']),
                  float(item['price']))
         self.dbc.execute("INSERT INTO NCIX VALUES (?,?,?,?,?,?)", db_item)

@@ -1,28 +1,17 @@
-from scrapy.contrib.spiders import CrawlSpider, Rule
-from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.selector import HtmlXPathSelector
-
-
+from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
+from scrapy.contrib.spiders import CrawlSpider, Rule
 from ncix.items import ncixItem
 
-class NcixSpider(CrawlSpider):
-    name = "ncix"
-    allowed_domains = ["www.ncix.com"]
-    
+class NcixdailySpider(CrawlSpider):
+    name = 'ncixdaily'
+    allowed_domains = ['ncix.com']
+    start_urls = ['http://www.ncix.com/']
+
     rules = (
         Rule(SgmlLinkExtractor(allow=('sku=*',), deny=('mode=*',)), callback='parse_item'),
-        Rule(SgmlLinkExtractor(allow=('minorcatid=*',), deny=('mode=*')))
         )
 
-    def __init__(self, *args, **kwargs):
-        super(NcixSpider, self).__init__(*args, **kwargs)
-
-        self.start_urls = [kwargs.get('start_url')]
-
-        if self.start_urls ==[None]:
-#            self.start_urls = ["http://ncix.com/products/?minorcatid=1263"]
-            self.start_urls = ["http://ncix.com/products/?mode=productdir"]
-    
     def parse_item(self, response):
         import re
         import time

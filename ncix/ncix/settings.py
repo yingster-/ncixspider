@@ -6,8 +6,8 @@
 #     http://doc.scrapy.org/topics/settings.html
 #
 LOG_LEVEL = 'INFO'
-BOT_NAME = 'ncixbot'
-DOWNLOAD_DELAY = 8
+BOT_NAME = 'ncix'
+DOWNLOAD_DELAY = 6
 DEPTH_LIMIT = 2
 SPIDER_MODULES = ['ncix.spiders']
 NEWSPIDER_MODULE = 'ncix.spiders'

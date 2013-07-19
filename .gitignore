@@ -6,3 +6,4 @@
 *.seen
 *.db
 */crawls*
+*log*
